@@ -7,4 +7,9 @@ router.get('/', async (req, res) => {
   return res.render('home', firstUser.dataValues);
 });
 
+router.get('/login', async (req, res) => {
+  console.log("login route");
+  return res.render('login');
+});
+
 module.exports = router;
