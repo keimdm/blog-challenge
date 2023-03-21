@@ -1,3 +1,5 @@
-<p>Home Page</p>
-<p>{{name}}</p>
-<p>{{email}}</p>
+{{#each postData as |post|}}
+<h2>{{post.title}}</h2>
+<p>{{post.contents}}</p>
+<p>By {{post.username}} on {{post.date}}</p>
+{{/each}}

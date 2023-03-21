@@ -1,10 +1,27 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const sequelize = require('../config/connection');
+const { User, Post, Comment } = require('../models');
 
 router.get('/', async (req, res) => {
-  console.log("home route");
-  const firstUser = await User.findByPk(1);
-  return res.render('home', firstUser.dataValues);
+  const rawPostData = await Post.findAll({
+    include: [{ model: User }],
+    attributes: {
+      include: [
+        [
+          sequelize.literal(
+            '(SELECT name FROM user WHERE user.id = post.user_id)'
+          ),
+          'username',
+        ],
+      ],
+    },
+  });
+  let postData = [];
+  for (i = 0; i < rawPostData.length; i++) {
+    postData.push(rawPostData[i].get({ plain: true }));
+  }
+  console.log(postData);
+  return res.render('home', {postData});
 });
 
 module.exports = router;
