@@ -11,18 +11,15 @@
       <h1>
         Tech Blog
       </h1>
-      <a href="/">Home</a>
-      <a href="/dashboard">Dashboard</a>
       {{#if loggedIn}}
-      <p id="logout">Log Out</p>
+        {{> toolbar-loggedin}}
       {{else}}
-      <a href="/login">Log In</a>
+        {{> toolbar-loggedout}}
       {{/if}}
     </header>
       <main class="container container-fluid mt-5">
         {{{ body }}}
       </main>
   </div>
-  <script src="/js/logout.js"></script>
   </body>
 </html>
