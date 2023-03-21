@@ -1,27 +1,32 @@
 const User = require('./User');
+const Post = require('./Post');
+const Comment = require('./Comment');
 
-// PUT RELATIONSHIPS HERE
+Post.belongsTo(User, {
+  foreignKey: 'user_id',
+});
 
-module.exports = { User };
+User.hasMany(Post, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+});
 
-// EXAMPLE RELATIONSHIPS
+Comment.belongsTo(Post, {
+  foreignKey: 'post_id',
+});
 
-/*
-// Model1 belongsTo Model2
-Model1.belongsTo(Model2, {
-    foreignKey: 'model2_id',
-  });
-  
-  // Model2 have many Model1
-  Model2.hasMany(Model1, {
-    foreignKey: 'model2_id',
-    onDelete: 'CASCADE',
-  });
-  
-  // Model1 belongToMany Model3 (through Model4)
-  Model1.belongsToMany(Model3, {
-    through: Model4,
-  });
+Post.hasMany(Comment, {
+  foreignKey: 'post_id',
+  onDelete: 'CASCADE',
+});
 
-  // FOR MANY TO MANY, have to specify not unique both here and in the Model.js file
-  */
+Comment.belongsTo(User, {
+  foreignKey: 'user_id',
+});
+
+User.hasMany(Comment, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+});
+
+module.exports = { User, Post, Comment };

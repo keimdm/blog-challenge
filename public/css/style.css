@@ -2,6 +2,11 @@ header {
     background-color: blue;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 h1 {
     color: white;
 }
