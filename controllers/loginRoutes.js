@@ -27,6 +27,7 @@ router.post('/login', async (req, res) => {
             req.session.userID = dbUserData.get({ plain: true }).id;
         });
         console.log(req.session);
+        console.log(req.session.loggedIn);
         return res.render('home');
     } catch (err) {
         console.log(err);
