@@ -12,10 +12,11 @@
         Tech Blog
       </h1>
       <a href="/">Home</a>
-      <a href="">Dashboard</a>
-      <a href="/login">Log In</a>
+      <a href="/dashboard">Dashboard</a>
       {{#if loggedIn}}
       <a href="/login">Log Out</a>
+      {{else}}
+      <a href="/login">Log In</a>
       {{/if}}
     </header>
       <main class="container container-fluid mt-5">

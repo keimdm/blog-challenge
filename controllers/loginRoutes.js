@@ -13,19 +13,18 @@ router.post('/login', async (req, res) => {
             email: req.body.email,
           },
         });
-        console.log(dbUserData);
         if (!dbUserData) {
             res.status(400).json({ message: 'Incorrect email or password. Please try again!' });
             return;
         }
         const validPassword = await dbUserData.checkPassword(req.body.password);
-        console.log(validPassword);
         if (!validPassword) {
             res.status(400).json({ message: 'Incorrect email or password. Please try again!' });
             return;
         }
         req.session.save(() => {
             req.session.loggedIn = true;
+            req.session.userID = dbUserData.get({ plain: true }).id;
         });
         return res.render('home');
     } catch (err) {
