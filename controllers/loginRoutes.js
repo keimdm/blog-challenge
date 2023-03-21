@@ -45,9 +45,23 @@ router.post('/logout', async (req, res) => {
     }
 });
 
-router.post('/new', (req, res) => {
+router.post('/new', async (req, res) => {
     console.log("signup attempt")
-    return res.render('home');
+    try {
+        const dbUserData = await User.create({
+            name: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+        });
+        req.session.save(() => {
+          req.session.loggedIn = true;
+          req.session.userID = dbUserData.get({ plain: true }).id;
+        });
+        return res.render('home');
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
 });
 
 module.exports = router;
