@@ -14,12 +14,14 @@
       <a href="/">Home</a>
       <a href="">Dashboard</a>
       <a href="/login">Log In</a>
+      {{#if loggedIn}}
+      <a href="/login">Log Out</a>
+      {{/if}}
     </header>
       <main class="container container-fluid mt-5">
         {{{ body }}}
       </main>
   </div>
-  <script src="/js/script.js"></script>
   </body>
 
 </html>

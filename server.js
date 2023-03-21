@@ -3,9 +3,21 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
+const session = require('express-session');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const sess = {
+  secret: 'adkfj;lasdjfkl;asjdlkfjasd;jf;lkdjf',
+  cookie: {
+    maxAge: 30 * 60 * 1000,
+  },
+  resave: false,
+  saveUninitialized: true,
+};
+
+app.use(session(sess));
 
 const hbs = exphbs.create();
 

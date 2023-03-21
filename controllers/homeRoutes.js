@@ -21,7 +21,10 @@ router.get('/', async (req, res) => {
     postData.push(rawPostData[i].get({ plain: true }));
   }
   console.log(postData);
-  return res.render('home', {postData});
+  return res.render('home', {
+    postData,
+    loggedIn: req.session.loggedIn
+  });
 });
 
 module.exports = router;
