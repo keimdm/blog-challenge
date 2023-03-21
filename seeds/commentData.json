@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Nice!",
+        "user_id": 1,
+        "post_id": 2,
+        "date": 1679361440068
+    },
+    {
+        "title": "Awesome!",
+        "user_id": 2,
+        "post_id": 3,
+        "date": 1679361440068
+    },
+    {
+        "title": "Thanks!",
+        "user_id": 3,
+        "post_id": 1,
+        "date": 1679361440068
+    }
+]
