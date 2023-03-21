@@ -35,7 +35,7 @@ Comment.init(
               },
         },
         date: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
             allowNull: false,
         },
     },
