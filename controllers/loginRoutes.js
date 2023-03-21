@@ -33,6 +33,18 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.post('/logout', async (req, res) => {
+    console.log("log out attempt")
+    console.log(req.session.loggedIn);
+    if (req.session.loggedIn) {
+        req.session.destroy(() => {
+          res.status(204).end();
+        });
+    } else {
+        res.status(404).end();
+    }
+});
+
 router.post('/new', (req, res) => {
     console.log("signup attempt")
     return res.render('home');
