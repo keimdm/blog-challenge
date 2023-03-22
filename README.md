@@ -16,7 +16,9 @@ N/A
 
 ## Usage:
 * Navigate to the following link to view  the deployed application: https://blog-challenge.herokuapp.com/
+
 ![](./public/assets/images/screenshot.png)
+
 * On the homepage, click Log In to either create a new account or log in to an existing one
 * Once on the Log In page, enter the required fields and press the button to be logged in or signed up (if you sign up, you will be logged in automatically to the account you create)
 * After logging in, you will be able to add posts by going to Dashboard and clicking on New Post
