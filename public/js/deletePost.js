@@ -1,8 +1,8 @@
 const deletePostHandler = async (event) => {
     event.preventDefault();
     console.log("pressed delete post button");
-    console.log
-    const postID = Number(event.target.id);
+    const postID = event.target.classList[1];
+    console.log(postID);
     const response = await fetch(`/dashboard/post/${postID}/delete`, {
         method: 'DELETE',
     });
@@ -14,4 +14,4 @@ const deletePostHandler = async (event) => {
     }
 }
   
-  document.querySelector('.delete-button').addEventListener('click', deletePostHandler);
+  document.querySelector('#delete-button').addEventListener('click', deletePostHandler);

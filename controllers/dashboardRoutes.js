@@ -63,6 +63,14 @@ router.get('/post/:id', withAuth, async (req, res) => {
   });
 });
 
+router.get('/post/:id/update', withAuth, async (req, res) => {
+  return res.render('update-post', {
+    loggedIn: req.session.loggedIn,
+    userID: req.session.userID,
+    postID: req.params.id
+  });
+});
+
 router.post('/new/add', async (req, res) => {
   console.log("post add attempt")
     try {
@@ -79,9 +87,32 @@ router.post('/new/add', async (req, res) => {
     }
 });
 
+router.put('/post/:id/update/submit', async (req, res) => {
+  console.log("post update attempt")
+    try {
+      const dbUserData = await Post.update({
+        title: req.body.postTitle,
+        contents: req.body.postContent,
+        user_id: req.session.userID,
+        date: Date.now()
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.status(200).json(dbUserData);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
 router.delete('/post/:id/delete', async (req, res) => {
   console.log("post delete attempt")
+  console.log(req.params);
     try {
+        console.log(req.params.id);
         const commentData = await Comment.destroy({
             where: {
               post_id: Number(req.params.id)
