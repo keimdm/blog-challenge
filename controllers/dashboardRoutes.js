@@ -79,4 +79,24 @@ router.post('/new/add', async (req, res) => {
     }
 });
 
+router.delete('/post/:id/delete', async (req, res) => {
+  console.log("post delete attempt")
+    try {
+        const commentData = await Comment.destroy({
+            where: {
+              post_id: Number(req.params.id)
+            }
+        });
+        const dbUserData = await Post.destroy({
+            where: {
+              id: Number(req.params.id)
+            }
+        });
+        res.status(204).json(dbUserData);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;

@@ -2,5 +2,7 @@
 <p>{{postData.contents}}</p>
 <p>By {{postData.username}} on {{postData.date}}</p>
 
-<button onclick="window.location.href='/post/{{postData.id}}/update';">Update Post</button>
-<button onclick="window.location.href='/post/{{postData.id}}/delete';">Delete Post</button>
+<button onclick="window.location.href='dashboard/post/{{postData.id}}/update';">Update Post</button>
+<button class="delete-button" id="{{postData.id}}">Delete Post</button>
+
+<script src="/js/deletePost.js"></script>
