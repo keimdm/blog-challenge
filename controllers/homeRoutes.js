@@ -21,6 +21,7 @@ router.get('/', async (req, res) => {
   let postData = [];
   for (i = 0; i < rawPostData.length; i++) {
     postData.push(rawPostData[i].get({ plain: true }));
+    postData[i].date = new Date(postData[i].date).toLocaleDateString();
   }
   console.log(postData);
   return res.render('home', {
