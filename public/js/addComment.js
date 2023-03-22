@@ -2,7 +2,7 @@ const commentFormHandler = async (event) => {
     event.preventDefault();
     console.log("pressed submit comment button");
     const commentText = document.querySelector('#comment-text').value.trim();
-    const postID = Number(event.target.children[1].children[0].id);
+    const postID = Number(event.target.children[1].children[0].classList[2]);
     if (commentText) {
       const response = await fetch(`/post/${postID}/comment/add`, {
         method: 'POST',
