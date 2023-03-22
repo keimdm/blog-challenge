@@ -3,6 +3,7 @@ const sequelize = require('../config/connection');
 const { User, Post, Comment } = require('../models');
 
 router.get('/', async (req, res) => {
+  console.log(req.session);
   const rawPostData = await Post.findAll({
     include: [{ model: User }],
     attributes: {
