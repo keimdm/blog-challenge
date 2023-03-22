@@ -7,6 +7,10 @@ a {
     text-decoration: none;
 }
 
+.post {
+    color: black;
+}
+
 .message {
     color: black;
 }
