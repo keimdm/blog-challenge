@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.get('/post/:id', withAuth, async (req, res) => {
+router.get('/post/:id', async (req, res) => {
   console.log("look at post details");
   console.log(req.params.id);
   let postData = await Post.findByPk(req.params.id, {
@@ -76,7 +76,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
   });
 });
 
-router.get('/post/:id/comment', async (req, res) => {
+router.get('/post/:id/comment', withAuth, async (req, res) => {
   console.log("Navigate to new comment:");
   console.log(req.params.id);
   return res.render('add-comment', {
@@ -85,7 +85,7 @@ router.get('/post/:id/comment', async (req, res) => {
   });
 });
 
-router.post('/post/:id/comment/add', async (req, res) => {
+router.post('/post/:id/comment/add', withAuth, async (req, res) => {
   console.log("comment add attempt")
   console.log(req.params.id);
     try {
