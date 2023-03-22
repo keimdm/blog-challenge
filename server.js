@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 const sess = {
-  secret: 'adkfj;lasdjfkl;asjdlkfjasd;jf;lkdjf',
+  secret: 'banana split',
   cookie: {
     maxAge: 30 * 60 * 1000,
   },

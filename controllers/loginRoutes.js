@@ -8,31 +8,34 @@ router.get('/', (req, res) => {
 router.post('/login', async (req, res) => {
     console.log("log in attempt")
     try {
-        const dbUserData = await User.findOne({
-          where: {
-            email: req.body.email,
-          },
-        });
-        if (!dbUserData) {
-            res.status(400).json({ message: 'Incorrect email or password. Please try again!' });
-            return;
+        const userData = await User.findOne({ where: { email: req.body.email } });
+    
+        if (!userData) {
+          res
+            .status(400)
+            .json({ message: 'Incorrect email or password, please try again' });
+          return;
         }
-        const validPassword = await dbUserData.checkPassword(req.body.password);
+    
+        const validPassword = await userData.checkPassword(req.body.password);
+    
         if (!validPassword) {
-            res.status(400).json({ message: 'Incorrect email or password. Please try again!' });
-            return;
+          res
+            .status(400)
+            .json({ message: 'Incorrect email or password, please try again' });
+          return;
         }
+    
         req.session.save(() => {
-            req.session.loggedIn = true;
-            req.session.userID = dbUserData.get({ plain: true }).id;
+          req.session.userID = userData.id;
+          req.session.loggedIn = true;
+          
+          res.json({ user: userData, message: 'You are now logged in!' });
         });
-        console.log(req.session);
-        console.log(req.session.loggedIn);
-        return res.render('home');
-    } catch (err) {
-        console.log(err);
-        res.status(500).json(err);
-    }
+    
+      } catch (err) {
+        res.status(400).json(err);
+      }
 });
 
 router.post('/logout', async (req, res) => {
@@ -57,8 +60,8 @@ router.post('/new', async (req, res) => {
         req.session.save(() => {
           req.session.loggedIn = true;
           req.session.userID = dbUserData.get({ plain: true }).id;
+          res.json({ user: dbUserData, message: 'You have now signed up!' });
         });
-        return res.render('home');
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
