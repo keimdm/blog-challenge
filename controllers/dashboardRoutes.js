@@ -33,4 +33,27 @@ router.get('/', withAuth, async (req, res) => {
   });
 });
 
+router.get('/new', withAuth, async (req, res) => {
+  return res.render('add-post', {
+    loggedIn: req.session.loggedIn,
+    userID: req.session.userID
+  });
+});
+
+router.post('/new/add', async (req, res) => {
+  console.log("post add attempt")
+    try {
+        const dbUserData = await Post.create({
+            title: req.body.postTitle,
+            contents: req.body.postContent,
+            user_id: req.session.userID,
+            date: Date.now()
+        });
+        res.status(200).json("ok");
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;

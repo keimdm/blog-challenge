@@ -1,5 +1,3 @@
-{{#if loggedIn}}
-    {{> dashboard-content}}
-{{else}}
-    <a class="message" href="/login">Click here to log in or sign up!</a>
-{{/if}}
+{{> dashboard-content}}
+
+<button onclick="window.location.href='/dashboard/new';">New Post</button>
