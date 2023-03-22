@@ -61,5 +61,30 @@ router.get('/post/:id', withAuth, async (req, res) => {
   });
 });
 
+router.get('/post/:id/comment', async (req, res) => {
+  console.log("Navigate to new comment:");
+  console.log(req.params.id);
+  return res.render('add-comment', {
+    postID: req.params.id,
+    loggedIn: req.session.loggedIn
+  });
+});
+
+router.post('/post/:id/comment/add', async (req, res) => {
+  console.log("comment add attempt")
+  console.log(req.params.id);
+    try {
+        const dbUserData = await Comment.create({
+            contents: req.body.commentText,
+            user_id: req.session.userID,
+            post_id: req.params.id,
+            date: Date.now()
+        });
+        res.status(200).json("ok");
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
 
 module.exports = router;
