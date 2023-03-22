@@ -24,6 +24,7 @@ router.get('/', withAuth, async (req, res) => {
   let postData = [];
   for (i = 0; i < rawPostData.length; i++) {
     postData.push(rawPostData[i].get({ plain: true }));
+    postData[i].date = new Date(postData[i].date).toLocaleDateString();
   }
   console.log(postData);
   return res.render('dashboard', {
@@ -57,6 +58,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
     },
   });
   postData = postData.get({plain: true});
+  postData.date = new Date(postData.date).toLocaleDateString();
   return res.render('post-menu', {
     postData,
     loggedIn: req.session.loggedIn

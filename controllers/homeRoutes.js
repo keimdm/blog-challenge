@@ -47,6 +47,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
     },
   });
   postData = postData.get({plain: true});
+  postData.date = new Date(postData.date).toLocaleDateString();
   let rawCommentData = await Comment.findAll({
     where: {
       post_id: req.params.id,
@@ -66,6 +67,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
   let commentData = [];
   for (i = 0; i < rawCommentData.length; i++) {
     commentData.push(rawCommentData[i].get({ plain: true }));
+    commentData[i].date = new Date(commentData[i].date).toLocaleDateString();
   }
   return res.render('post-comment', {
     postData,
