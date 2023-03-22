@@ -1,0 +1,6 @@
+<h2>{{postData.title}}</h2>
+<p>{{postData.contents}}</p>
+<p>By {{postData.username}} on {{postData.date}}</p>
+
+<button onclick="window.location.href='/post/{{postData.id}}/update';">Update Post</button>
+<button onclick="window.location.href='/post/{{postData.id}}/delete';">Delete Post</button>

@@ -40,6 +40,29 @@ router.get('/new', withAuth, async (req, res) => {
   });
 });
 
+router.get('/post/:id', withAuth, async (req, res) => {
+  console.log("look at post menu");
+  console.log(req.params.id);
+  let postData = await Post.findByPk(req.params.id, {
+    include: [{ model: User }],
+    attributes: {
+      include: [
+        [
+          sequelize.literal(
+            '(SELECT name FROM user WHERE user.id = post.user_id)'
+          ),
+          'username',
+        ],
+      ],
+    },
+  });
+  postData = postData.get({plain: true});
+  return res.render('post-menu', {
+    postData,
+    loggedIn: req.session.loggedIn
+  });
+});
+
 router.post('/new/add', async (req, res) => {
   console.log("post add attempt")
     try {

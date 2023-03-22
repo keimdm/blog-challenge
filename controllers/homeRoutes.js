@@ -32,7 +32,19 @@ router.get('/', async (req, res) => {
 router.get('/post/:id', withAuth, async (req, res) => {
   console.log("look at post details");
   console.log(req.params.id);
-  let postData = await Post.findByPk(req.params.id);
+  let postData = await Post.findByPk(req.params.id, {
+    include: [{ model: User }],
+    attributes: {
+      include: [
+        [
+          sequelize.literal(
+            '(SELECT name FROM user WHERE user.id = post.user_id)'
+          ),
+          'username',
+        ],
+      ],
+    },
+  });
   postData = postData.get({plain: true});
   let rawCommentData = await Comment.findAll({
     where: {
